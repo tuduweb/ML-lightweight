@@ -92,12 +92,21 @@ if __name__ == '__main__':
     model.eval().cpu()  # cpu推理
 
     x = torch.randn(batch_size, *input_shape).cpu()  # 生成张量
-    export_onnx_file = "./indi00031_00028.onnx"  # 要生成的ONNX文件名
-    torch.onnx.export(model,
-                    x,
-                    export_onnx_file,
-                    do_constant_folding=True,  # 是否执行常量折叠优化
-                    input_names=["input"],  # 输入名
-                    output_names=["output"],  # 输出名
-                    dynamic_axes={"input": {0: "batch_size"},  # 批处理变量
-                                    "output": {0: "batch_size"}})
+    export_onnx_file = "./indi00031_00028"  # 要生成的ONNX文件名
+    # torch.onnx.export(model,
+    #                 x,
+    #                 export_onnx_file,
+    #                 do_constant_folding=True,  # 是否执行常量折叠优化
+    #                 input_names=["input"],  # 输入名
+    #                 output_names=["output"],  # 输出名
+    #                 dynamic_axes={"input": {0: "batch_size"},  # 批处理变量
+    #                                 "output": {0: "batch_size"}})
+
+
+
+    # model = initTorchModel()
+    # model = model.eval()
+    # x = torch.rand(1, 63)
+
+    mod = torch.jit.trace(model, x)
+    mod.save(export_onnx_file + ".pt")

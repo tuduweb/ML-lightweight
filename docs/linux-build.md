@@ -1,0 +1,9 @@
+#### NCNN Linux下的编译
+
+```
+cmake -DCMAKE_BUILD_TYPE=Debug -DNCNN_VULKAN=OFF -DNCNN_BUILD_EXAMPLES=ON ..
+```
+
+```
+cmake -DCMAKE_BUILD_TYPE=Release -DNCNN_VULKAN=OFF -DNCNN_BUILD_EXAMPLES=ON ..
+```
